@@ -25,6 +25,7 @@ gui/
     my_appointments.py           ← View upcoming/past appointments
     my_records.py                ← View medical history
     my_bills.py                  ← View bills
+    review_doctor.py             ← Rate doctor after completed appointment
   doctor/
     dashboard.py                 ← Doctor main dashboard
     appointments.py              ← View scheduled appointments
@@ -46,12 +47,14 @@ database/
   medical_record_dao.py          ← create_record, get_records_by_patient, get_record_by_appointment
   bill_dao.py                    ← create_bill, get_bills_by_patient, get_all_bills
   symptom_dao.py                 ← get_departments_by_symptom
+  review_dao.py                  ← create_review, get_reviews_by_doctor, get_review_by_appointment
 services/
   auth_services.py               ← (existing) register_user, login_user (bcrypt)
   appointment_services.py        ← check slot availability, create appointment
   billing_services.py            ← auto-generate bill on appointment completion
   medical_record_services.py     ← add and fetch medical records
   symptom_services.py            ← map symptom keywords → department → doctors
+  review_services.py             ← submit review, fetch doctor reviews
 ```
 
 ---
@@ -92,6 +95,13 @@ services/
 4. Doctor can also open **Patient History** → search a patient → view all past records.
 5. Patients can view (read-only) their records from **My Medical Records**.
 
+### Doctor Review
+1. Patient opens **My Appointments** → sees completed appointments without a review yet.
+2. Clicks "Leave Review" → opens **Review Doctor** screen.
+3. Selects star rating (1–5, required) and optionally types a comment.
+4. `review_services.submit_review()` saves to the `review` table (one review per appointment, enforced by `UNIQUE` on `appointment_id`).
+5. Doctor can view all their reviews from the **My Reviews** screen.
+
 ### Session Management
 - `App.current_user` holds the logged-in user for the full session.
 - Every dashboard has a **Logout** button that clears `current_user` and raises `LoginFrame`.
@@ -111,6 +121,7 @@ services/
 | `medical_record_dao` | `create_record`, `get_records_by_patient`, `get_record_by_appointment` |
 | `bill_dao` | `create_bill`, `get_bills_by_patient`, `get_all_bills` |
 | `symptom_dao` | `get_departments_by_symptom` |
+| `review_dao` | `create_review`, `get_reviews_by_doctor`, `get_review_by_appointment` |
 
 ### Services
 
@@ -120,6 +131,7 @@ services/
 | `billing_services` | Auto-generate bill when appointment marked completed |
 | `medical_record_services` | Add and fetch medical records |
 | `symptom_services` | Match symptom keywords → department → list of doctors |
+| `review_services` | Submit review for completed appointment, fetch doctor reviews |
 
 ---
 
@@ -133,11 +145,13 @@ services/
 | My Appointments | List upcoming and past appointments |
 | My Medical Records | View diagnoses and prescriptions (read-only) |
 | My Bills | View bills tied to completed appointments |
+| Review Doctor | Rate doctor (1–5 stars) + optional comment after a completed appointment (one review per appointment) |
 
 ### Doctor Dashboard
 | Screen | Description |
 |---|---|
 | My Appointments | List of scheduled appointments with patient name, date/time |
+| My Reviews | View all reviews left by patients for their appointments |
 | Write Medical Record | Select appointment → enter diagnosis + prescription |
 | Patient History | Search patient → view all past records |
 
@@ -165,6 +179,7 @@ Defined in `migrations/init.sql`. Key tables:
 | `medical_record` | Diagnosis/prescription tied to an `appointment` |
 | `bill` / `bill_item` | Billing tied to an `appointment` |
 | `symptom_mapping` | Maps symptom keywords to departments |
+| `review` | Star rating (1–5, required) + optional comment, one per completed appointment |
 
 ---
 

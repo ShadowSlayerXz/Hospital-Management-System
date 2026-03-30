@@ -93,3 +93,16 @@ CREATE TABLE IF NOT EXISTS symptom_mapping (
     keyword VARCHAR(100) NOT NULL UNIQUE,
     department_id INT NOT NULL REFERENCES department(department_id) ON DELETE CASCADE
 );
+
+
+-- Doctor Review Table
+
+CREATE TABLE IF NOT EXISTS review (
+    review_id SERIAL PRIMARY KEY,
+    appointment_id INT NOT NULL UNIQUE REFERENCES appointment(appointment_id) ON DELETE CASCADE,
+    patient_id INT NOT NULL REFERENCES patient(patient_id) ON DELETE CASCADE,
+    doctor_id INT NOT NULL REFERENCES doctor(doctor_id) ON DELETE CASCADE,
+    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
