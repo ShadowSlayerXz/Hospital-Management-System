@@ -1,11 +1,10 @@
 # gui/admin/manage_doctors.py
 import tkinter as tk
 from tkinter import ttk, messagebox
-import bcrypt
 
-from database.doctor_dao import get_all_doctors, create_doctor, delete_doctor
+from database.doctor_dao import get_all_doctors, delete_doctor
 from database.department_dao import get_all_departments
-from database.user_dao import create_user, get_user_by_email
+from services.auth_services import register_doctor
 
 
 class ManageDoctors(tk.Frame):
@@ -71,27 +70,18 @@ class ManageDoctors(tk.Frame):
             messagebox.showwarning("Input Error", "Name, email, password, and department are required.")
             return
 
-        if get_user_by_email(v["email"]):
-            messagebox.showerror("Error", "Email already registered.")
-            return
-
-        hashed = bcrypt.hashpw(v["password"].encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
-        if not create_user(v["name"], v["email"], hashed, "doctor"):
-            messagebox.showerror("Error", "Failed to create doctor account.")
-            return
-
-        user = get_user_by_email(v["email"])
         dept_id = self._dept_map[dept_name]
         exp = int(v["experience"]) if v["experience"].isdigit() else 0
 
-        if create_doctor(user[0], dept_id, exp, v["qualification"]):
-            messagebox.showinfo("Success", "Doctor added.")
+        success, msg = register_doctor(v["name"], v["email"], v["password"], dept_id, exp, v["qualification"])
+        if success:
+            messagebox.showinfo("Success", msg)
             for var in self._vars.values():
                 var.set("")
             self._dept_var.set("")
             self._refresh()
         else:
-            messagebox.showerror("Error", "Failed to create doctor profile.")
+            messagebox.showerror("Error", msg)
 
     def _delete(self):
         selected = self.tree.selection()
@@ -99,6 +89,7 @@ class ManageDoctors(tk.Frame):
             messagebox.showwarning("Select", "Select a doctor to delete.")
             return
         doctor_id = self.tree.item(selected[0])["values"][0]
-        if messagebox.askyesno("Confirm", "Delete this doctor? This also deletes their appointments."):
-            delete_doctor(doctor_id)
+        if messagebox.askyesno("Confirm", "Delete this doctor?"):
+            if not delete_doctor(doctor_id):
+                messagebox.showerror("Error", "Failed to delete doctor.")
             self._refresh()

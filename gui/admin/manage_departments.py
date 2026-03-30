@@ -57,5 +57,6 @@ class ManageDepartments(tk.Frame):
             return
         dept_id = self.tree.item(selected[0])["values"][0]
         if messagebox.askyesno("Confirm", "Delete this department?"):
-            delete_department(dept_id)
+            if not delete_department(dept_id):
+                messagebox.showerror("Error", "Failed to delete department. It may have doctors assigned to it.")
             self._refresh()

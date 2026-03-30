@@ -1,21 +1,7 @@
 # gui/admin/all_users.py
 import tkinter as tk
-from tkinter import ttk
-from database.db_connection import get_connection
-
-
-def _get_all_users():
-    conn = get_connection()
-    cursor = conn.cursor()
-    try:
-        cursor.execute("SELECT user_id, user_name, user_email, user_role FROM users ORDER BY user_role, user_name;")
-        return cursor.fetchall()
-    except Exception as e:
-        print("Error fetching users:", e)
-        return []
-    finally:
-        cursor.close()
-        conn.close()
+from tkinter import ttk, messagebox
+from database.user_dao import get_all_users
 
 
 class AllUsers(tk.Frame):
@@ -42,5 +28,9 @@ class AllUsers(tk.Frame):
     def _refresh(self):
         for row in self.tree.get_children():
             self.tree.delete(row)
-        for user in _get_all_users():
+        users = get_all_users()
+        if users is None:
+            messagebox.showerror("Error", "Failed to load users.")
+            return
+        for user in users:
             self.tree.insert("", "end", values=user)

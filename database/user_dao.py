@@ -41,3 +41,19 @@ def create_user(name, email, password, role):
     finally:
         cursor.close()
         conn.close()
+
+
+def get_all_users():
+    conn = get_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute(
+            "SELECT user_id, user_name, user_email, user_role FROM users ORDER BY user_role, user_name;"
+        )
+        return cursor.fetchall()
+    except Exception as e:
+        print("Error fetching users:", e)
+        return []
+    finally:
+        cursor.close()
+        conn.close()

@@ -23,6 +23,26 @@ def register_patient(name, email, password, age, gender, phone, address):
     return True, "Registered successfully"
 
 
+def register_doctor(name, email, password, department_id, experience_years, qualification):
+    """Register a new doctor: creates users row + doctor profile row. Returns (bool, message)."""
+    if get_user_by_email(email):
+        return False, "Email already registered"
+
+    hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+    if not create_user(name, email, hashed, "doctor"):
+        return False, "Failed to create account"
+
+    user = get_user_by_email(email)
+    if not user:
+        return False, "Failed to create account"
+
+    from database.doctor_dao import create_doctor
+    if not create_doctor(user[0], department_id, experience_years, qualification):
+        return False, "Failed to create doctor profile"
+
+    return True, "Doctor added successfully"
+
+
 def register_user(name, email, password, role):
     """Register admin/doctor user (no profile row — used internally)."""
     if get_user_by_email(email):

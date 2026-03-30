@@ -50,5 +50,8 @@ class AllAppointments(tk.Frame):
             return
         if messagebox.askyesno("Confirm", "Mark as completed and generate bill?"):
             success, msg = complete_appointment_and_bill(appt_id)
-            messagebox.showinfo("Result", msg)
+            if success:
+                messagebox.showinfo("Success", msg)
+            else:
+                messagebox.showerror("Error", msg)
             self._refresh()
