@@ -26,5 +26,17 @@ def initialize_database():
         conn.close()
 
 
+from services.auth_services import register_user
+from database.user_dao import get_user_by_email
+
+def seed_admin():
+    if not get_user_by_email("admin@hms.com"):
+        register_user("Admin", "admin@hms.com", "admin123", "admin")
+        print("Admin user created")
+    else:
+        print("Admin user already exists")
+
+
 if __name__ == "__main__":
     initialize_database()
+    seed_admin()

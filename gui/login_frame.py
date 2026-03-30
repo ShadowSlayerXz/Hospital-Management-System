@@ -76,6 +76,8 @@ class LoginFrame(tk.Frame):
         elif role == "admin":
             from gui.admin.dashboard import AdminDashboard
             self.master.show_frame(AdminDashboard)
+        else:
+            messagebox.showerror("Login Error", "Unknown user role. Please contact admin.")
 
     def _build_register(self):
         self._clear()
