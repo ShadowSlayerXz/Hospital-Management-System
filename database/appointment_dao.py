@@ -116,6 +116,9 @@ def mark_completed(appointment_id):
             UPDATE appointment SET status = 'completed'
             WHERE appointment_id = %s;
         """, (appointment_id,))
+        if cursor.rowcount == 0:
+            conn.rollback()
+            return False
         conn.commit()
         return True
     except Exception as e:

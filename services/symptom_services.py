@@ -4,6 +4,8 @@ from database.doctor_dao import get_doctors_by_department
 
 
 def suggest_for_symptoms(symptom_text):
+    if not symptom_text or not symptom_text.strip():
+        return []
     keywords = symptom_text.lower().split()
     seen_departments = {}
 
