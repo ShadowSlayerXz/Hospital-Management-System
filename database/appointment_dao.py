@@ -125,3 +125,22 @@ def mark_completed(appointment_id):
     finally:
         cursor.close()
         conn.close()
+
+
+def cancel_appointment(appointment_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("""
+            UPDATE appointment SET status = 'cancelled'
+            WHERE appointment_id = %s;
+        """, (appointment_id,))
+        conn.commit()
+        return True
+    except Exception as e:
+        conn.rollback()
+        print("Error cancelling appointment:", e)
+        return False
+    finally:
+        cursor.close()
+        conn.close()
