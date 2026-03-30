@@ -15,6 +15,8 @@ def register_patient(name, email, password, age, gender, phone, address):
         return False, "Registration failed"
 
     user = get_user_by_email(email)
+    if not user:
+        return False, "Registration failed"
     if not create_patient(user[0], age, gender, phone, address):
         return False, "Failed to create patient profile"
 
