@@ -4,8 +4,8 @@ import psycopg2
 def get_connection():
     try:
         conn = psycopg2.connect(
-            host="localhost",
-            port=5432,
+            host="127.0.0.1",
+            port=5433,
             database="hms",
             user="postgres",
             password="postgres",
