@@ -106,3 +106,124 @@ CREATE TABLE IF NOT EXISTS review (
     comment TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+-- Symptom seed data
+-- Uses subqueries so inserts are skipped if the named department does not exist.
+-- ON CONFLICT DO NOTHING makes this safe to re-run.
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'chest', department_id FROM department WHERE department_name = 'Cardiology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'heart', department_id FROM department WHERE department_name = 'Cardiology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'palpitations', department_id FROM department WHERE department_name = 'Cardiology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'angina', department_id FROM department WHERE department_name = 'Cardiology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'headache', department_id FROM department WHERE department_name = 'Neurology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'seizure', department_id FROM department WHERE department_name = 'Neurology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'stroke', department_id FROM department WHERE department_name = 'Neurology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'dizziness', department_id FROM department WHERE department_name = 'Neurology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'migraine', department_id FROM department WHERE department_name = 'Neurology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'bone', department_id FROM department WHERE department_name = 'Orthopedics'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'fracture', department_id FROM department WHERE department_name = 'Orthopedics'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'joint', department_id FROM department WHERE department_name = 'Orthopedics'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'knee', department_id FROM department WHERE department_name = 'Orthopedics'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'spine', department_id FROM department WHERE department_name = 'Orthopedics'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'cough', department_id FROM department WHERE department_name = 'Pulmonology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'asthma', department_id FROM department WHERE department_name = 'Pulmonology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'breathing', department_id FROM department WHERE department_name = 'Pulmonology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'lung', department_id FROM department WHERE department_name = 'Pulmonology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'wheeze', department_id FROM department WHERE department_name = 'Pulmonology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'stomach', department_id FROM department WHERE department_name = 'Gastroenterology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'nausea', department_id FROM department WHERE department_name = 'Gastroenterology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'vomiting', department_id FROM department WHERE department_name = 'Gastroenterology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'ulcer', department_id FROM department WHERE department_name = 'Gastroenterology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'diarrhea', department_id FROM department WHERE department_name = 'Gastroenterology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'skin', department_id FROM department WHERE department_name = 'Dermatology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'rash', department_id FROM department WHERE department_name = 'Dermatology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'acne', department_id FROM department WHERE department_name = 'Dermatology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'allergy', department_id FROM department WHERE department_name = 'Dermatology'
+ON CONFLICT (keyword) DO NOTHING;
+
+INSERT INTO symptom_mapping (keyword, department_id)
+SELECT 'itch', department_id FROM department WHERE department_name = 'Dermatology'
+ON CONFLICT (keyword) DO NOTHING;
