@@ -29,7 +29,9 @@ class AdminDashboard(tk.Frame):
         nav = [
             ("Manage Departments", self._show_departments),
             ("Manage Doctors", self._show_doctors),
+            ("Manage Symptoms", self._show_symptoms),
             ("All Appointments", self._show_appointments),
+            ("All Bills", self._show_bills),
             ("All Users", self._show_users),
         ]
         for label, cmd in nav:
@@ -53,10 +55,20 @@ class AdminDashboard(tk.Frame):
         from gui.admin.manage_doctors import ManageDoctors
         ManageDoctors(self.content).pack(fill="both", expand=True)
 
+    def _show_symptoms(self):
+        self._clear_content()
+        from gui.admin.manage_symptoms import ManageSymptoms
+        ManageSymptoms(self.content).pack(fill="both", expand=True)
+
     def _show_appointments(self):
         self._clear_content()
         from gui.admin.all_appointments import AllAppointments
         AllAppointments(self.content).pack(fill="both", expand=True)
+
+    def _show_bills(self):
+        self._clear_content()
+        from gui.admin.all_bills import AllBills
+        AllBills(self.content).pack(fill="both", expand=True)
 
     def _show_users(self):
         self._clear_content()
