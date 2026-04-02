@@ -63,6 +63,9 @@ def delete_symptom_mapping(mapping_id):
     cursor = conn.cursor()
     try:
         cursor.execute("DELETE FROM symptom_mapping WHERE mapping_id = %s;", (mapping_id,))
+        if cursor.rowcount == 0:
+            conn.rollback()
+            return False
         conn.commit()
         return True
     except Exception as e:

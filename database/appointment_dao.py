@@ -138,6 +138,9 @@ def cancel_appointment(appointment_id):
             UPDATE appointment SET status = 'cancelled'
             WHERE appointment_id = %s;
         """, (appointment_id,))
+        if cursor.rowcount == 0:
+            conn.rollback()
+            return False
         conn.commit()
         return True
     except Exception as e:
