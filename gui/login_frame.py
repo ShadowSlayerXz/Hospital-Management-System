@@ -1,6 +1,6 @@
 # gui/login_frame.py
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import ttk, messagebox
 
 from services.auth_services import login_user, register_patient
 from database.patient_dao import get_patient_by_user_id
@@ -89,7 +89,7 @@ class LoginFrame(tk.Frame):
 
         fields = [
             ("Full Name:", "name"), ("Email:", "email"), ("Password:", "password"),
-            ("Age:", "age"), ("Gender (male/female/other):", "gender"),
+            ("Age:", "age"), ("Gender:", "gender"),
             ("Phone:", "phone"), ("Address:", "address"),
         ]
         self._reg_vars = {}
@@ -97,8 +97,12 @@ class LoginFrame(tk.Frame):
             tk.Label(form, text=label, bg="#ecf0f1", font=("Arial", 11)).grid(
                 row=i, column=0, sticky="e", pady=6, padx=10)
             var = tk.StringVar()
-            show = "*" if key == "password" else ""
-            tk.Entry(form, textvariable=var, width=30, font=("Arial", 11), show=show).grid(row=i, column=1)
+            if key == "gender":
+                ttk.Combobox(form, textvariable=var, values=["male", "female", "other"],
+                             width=28, font=("Arial", 11), state="readonly").grid(row=i, column=1)
+            else:
+                show = "*" if key == "password" else ""
+                tk.Entry(form, textvariable=var, width=30, font=("Arial", 11), show=show).grid(row=i, column=1)
             self._reg_vars[key] = var
 
         tk.Button(self, text="Register", command=self._register,
