@@ -25,8 +25,11 @@ class ManageDoctors(tk.Frame):
         for i, (lbl, key) in enumerate(zip(labels, keys)):
             tk.Label(form, text=lbl, bg="#ecf0f1").grid(row=i, column=0, sticky="e", padx=5, pady=3)
             var = tk.StringVar()
-            show = "*" if key == "password" else ""
-            tk.Entry(form, textvariable=var, width=25, show=show).grid(row=i, column=1, padx=5)
+            if key == "experience":
+                tk.Spinbox(form, textvariable=var, from_=0, to=50, width=24).grid(row=i, column=1, padx=5)
+            else:
+                show = "*" if key == "password" else ""
+                tk.Entry(form, textvariable=var, width=25, show=show).grid(row=i, column=1, padx=5)
             self._vars[key] = var
 
         tk.Label(form, text="Department:", bg="#ecf0f1").grid(row=5, column=0, sticky="e", padx=5, pady=3)
