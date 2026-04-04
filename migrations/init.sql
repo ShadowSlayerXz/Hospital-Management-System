@@ -108,6 +108,33 @@ CREATE TABLE IF NOT EXISTS review (
 );
 
 
+-- Department seed data
+-- ON CONFLICT DO NOTHING makes this safe to re-run on existing databases.
+
+INSERT INTO department (department_name) VALUES ('Cardiology')         ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Neurology')          ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Orthopedics')        ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Pulmonology')        ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Gastroenterology')   ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Dermatology')        ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Pediatrics')         ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Gynecology')         ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Urology')            ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Nephrology')         ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Oncology')           ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Radiology')          ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Ophthalmology')      ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('ENT')                ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Psychiatry')         ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Endocrinology')      ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Rheumatology')       ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('General Surgery')    ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Emergency Medicine') ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Anesthesiology')     ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Hematology')         ON CONFLICT (department_name) DO NOTHING;
+INSERT INTO department (department_name) VALUES ('Pathology')          ON CONFLICT (department_name) DO NOTHING;
+
+
 -- Symptom seed data
 -- Uses subqueries so inserts are skipped if the named department does not exist.
 -- ON CONFLICT DO NOTHING makes this safe to re-run.
