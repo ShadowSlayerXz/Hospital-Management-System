@@ -40,3 +40,6 @@ def seed_admin():
 if __name__ == "__main__":
     initialize_database()
     seed_admin()
+
+    from migrations.seed_doctors import seed as seed_doctors
+    seed_doctors()

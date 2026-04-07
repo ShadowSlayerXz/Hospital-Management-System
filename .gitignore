@@ -9,3 +9,6 @@ CLAUDE.md
 
 # Superpowers / internal planning docs
 docs/superpowers/
+
+# Local-only docs (not for repo)
+docs/technical_overview.md
