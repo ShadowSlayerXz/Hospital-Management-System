@@ -52,6 +52,52 @@ This system enables:
 - Intelligent symptom-to-department mapping system
 - Direct patients to appropriate departments based on their symptoms
 
+## How to Run
+
+### Prerequisites
+- Python 3.x
+- MySQL database server
+
+### Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd Hospital-Management-System
+   ```
+
+2. **Create and activate a virtual environment**
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+
+5. **Run the application**
+   ```bash
+   docker-compose up -d
+   python main.py
+   ```
+
+   On first run, the app automatically initializes the database schema, creates the admin account, and seeds all departments and doctors — no separate setup command needed.
+
+### Default Login Credentials
+
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@hms.com | admin123 |
+| Doctor (any) | doctor.`<department>`.1@hms.com | doctor123 |
+| Patient | Register via the app | — |
+
+> See `credentials.md` for the full list of seeded doctor emails.
+
+---
+
 ## Intended Users
 
 - **Patients**: Easy access to doctor appointments and medical history
