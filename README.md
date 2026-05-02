@@ -68,20 +68,26 @@ This system enables:
 
 2. **Create and activate a virtual environment**
    ```bash
-   python -m venv venv
+   python3 -m venv venv
+   # macOS/Linux
+   source venv/bin/activate
+   # Windows
    venv\Scripts\activate
    ```
 
 3. **Install dependencies**
    ```bash
-   pip install -r requirements.txt
+   pip3 install -r requirements.txt
    ```
 
+4. **Start the database**
+   ```bash
+   docker-compose up -d
+   ```
 
 5. **Run the application**
    ```bash
-   docker-compose up -d
-   python main.py
+   python3 main.py
    ```
 
    On first run, the app automatically initializes the database schema, creates the admin account, and seeds all departments and doctors — no separate setup command needed.

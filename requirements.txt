@@ -2,4 +2,4 @@ mysql-connector-python
 bcrypt
 python-dotenv
 tkcalendar
-psycopg2
+psycopg2-binary
