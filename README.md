@@ -79,6 +79,7 @@ This system enables:
    ```bash
    pip3 install -r requirements.txt
    ```
+   > If `pip3` is not found, try `pip install -r requirements.txt`
 
 4. **Start the database**
    ```bash
@@ -89,6 +90,7 @@ This system enables:
    ```bash
    python3 main.py
    ```
+   > If `python3` is not found, try `python main.py`
 
    On first run, the app automatically initializes the database schema, creates the admin account, and seeds all departments and doctors — no separate setup command needed.
 
